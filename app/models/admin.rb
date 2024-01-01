@@ -4,6 +4,5 @@ class Admin < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :tickets, dependent: :destroy, foreign_key: 'admin_id'
-
+  has_one :admin_profile, dependent: :destroy
 end
