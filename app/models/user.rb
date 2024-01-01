@@ -4,5 +4,5 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :tickets, dependent: :destroy, foreign_key: 'user_id'
+  has_one  :user_profile, dependent: :destroy
 end

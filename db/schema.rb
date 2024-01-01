@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_28_021524) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_01_123729) do
+  create_table "admin_profiles", force: :cascade do |t|
+    t.string "name"
+    t.string "desingation"
+    t.string "department"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "admin_id", null: false
+    t.index ["admin_id"], name: "index_admin_profiles_on_admin_id"
+  end
+
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -31,8 +41,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_021524) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "admin_profile_id"
+    t.index ["admin_profile_id"], name: "index_head_admins_on_admin_profile_id"
     t.index ["email"], name: "index_head_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_head_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.string "problem"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "location"
+    t.integer "user_profile_id"
+  end
+
+  create_table "user_profiles", force: :cascade do |t|
+    t.string "name"
+    t.string "designation"
+    t.string "department"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_user_profiles_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,4 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_021524) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "admin_profiles", "admins"
+  add_foreign_key "head_admins", "admin_profiles"
+  add_foreign_key "user_profiles", "users"
 end

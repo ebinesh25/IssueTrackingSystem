@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :admin_profiles
   devise_for :head_admins
   devise_for :admins
   devise_for :users
