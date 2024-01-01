@@ -5,4 +5,5 @@ class Admin < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :admin_profile, dependent: :destroy
+  accepts_nested_attributes_for :admin_profile
 end
